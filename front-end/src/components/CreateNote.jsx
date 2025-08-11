@@ -44,7 +44,7 @@ function CreateNote() {
       <form onSubmit={handleSubmit}>
         <div className="addnotespage">
           <label>
-            Title:
+            Title :
             <input
               className="h-10 w-50 border-2 text-2xl rounded-xl"
               name="title"
@@ -53,7 +53,7 @@ function CreateNote() {
             />
           </label>
           <label>
-            Date:
+            Date :
             <input
               className="h-10 w-50 border-2 text-2xl rounded-xl"
               name="date"
