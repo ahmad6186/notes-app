@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { fetchWithAuth } from "../utils";
 import { useNavigate, useParams } from "react-router-dom";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 function CreateNote() {
   const navigate = useNavigate();
   const [note, setNote] = useState({
@@ -43,24 +45,24 @@ function CreateNote() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div className="bg-yellow-100 min-h-screen p-20">
-          <button
-            type="submit"
-            className="h-10 w-20 bg-black text-white fixed top-20 right-4 rounded-2xl"
-          >
-            ADD
-          </button>
-          <input
-            className="h-20 w-full  text-5xl p-10 "
-            name="title"
-            value={note.title}
-            placeholder="Title"
-            onChange={handleChange}
-          />
+    <Box
+      component="form"
+      sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <form onSubmit={handleSubmit}>
+          <div className="p-20 flex flex-col items-center text-center">
+            <input
+              className="h-20 w-150  text-5xl p-10 "
+              name="title"
+              value={note.title}
+              placeholder="Title"
+              onChange={handleChange}
+            />
 
-          {/* <label>
+            {/* <label>
             Date :
             <input
               className="h-10 w-50 border-2 text-2xl rounded-xl"
@@ -71,17 +73,35 @@ function CreateNote() {
             />
           </label> */}
 
-          {/* Write note here: */}
-          <textarea
-            className="h-screen w-full text-2xl p-10 "
-            name="text"
-            value={note.text}
-            placeholder="Write here"
-            onChange={handleChange}
-          />
-        </div>
-      </form>
-    </div>
+            {/* Write note here: */}
+            <TextField
+              id="standard-multiline-static"
+              label="Multiline"
+              multiline
+              rows={4}
+              defaultValue="Default Value"
+              variant="standard"
+              onChange={handleChange}
+              value={note.text}
+              name="text"
+            />
+            <textarea
+              className="h-200 w-150 text-2xl p-10 "
+              name="text"
+              value={note.text}
+              placeholder="Write here"
+              onChange={handleChange}
+            />
+            <button
+              type="submit"
+              className="h-10 w-20 bg-black text-white  rounded-2xl"
+            >
+              ADD
+            </button>
+          </div>
+        </form>
+      </div>
+    </Box>
   );
 }
 

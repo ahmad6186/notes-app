@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { fetchWithAuth } from "../utils";
 import { useNavigate, useParams } from "react-router-dom";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 function EditNote() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -50,43 +52,50 @@ function EditNote() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div className="addnotespage">
-          <label>
-            Title:
-            <input
-              className="h-10 w-50 border-2 text-2xl rounded-xl"
-              name="title"
-              value={note.title}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Date:
-            <input
-              className="h-10 w-50 border-2 text-2xl rounded-xl"
-              name="date"
-              type="date"
-              value={note.date}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            <textarea
-              className="border-2 text-2xl h-100 w-80 rounded-xl"
-              name="text"
-              value={note.text}
-              placeholder="Type something..."
-              onChange={handleChange}
-            />
-          </label>
-          <button type="submit" className="btn">
-            Save Changes
-          </button>
-        </div>
-      </form>
-    </div>
+    <Box
+      component="form"
+      sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <form onSubmit={handleSubmit}>
+          <div className="addnotespage">
+            <label>
+              Title:
+              <input
+                className="h-10 w-50 border-2 text-2xl rounded-xl"
+                name="title"
+                value={note.title}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Date:
+              <input
+                className="h-10 w-50 border-2 text-2xl rounded-xl"
+                name="date"
+                type="date"
+                value={note.date}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              <textarea
+                className="border-2 text-2xl h-100 w-80 rounded-xl"
+                name="text"
+                value={note.text}
+                placeholder="Type something..."
+                onChange={handleChange}
+              />
+            </label>
+            <button type="submit" className="btn">
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </Box>
   );
 }
 
