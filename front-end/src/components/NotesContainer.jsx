@@ -17,16 +17,33 @@ function NotesContainer() {
     });
     setNotes((prevNotes) => prevNotes.filter((note) => note._id !== id));
   };
-
+  const colors = [
+    "bg-red-500",
+    "bg-blue-500",
+    "bg-green-500",
+    "bg-yellow-500",
+    "bg-purple-500",
+    "bg-pink-500",
+    "bg-orange-500",
+  ];
+  const getColorFromId = (id) => {
+    if (!id) return colors[0];
+    let hash = 7;
+    for (let i = 0; i < id.length; i++) {
+      hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+    }
+    return colors[hash % colors.length];
+  };
   return (
-    <div className="sm:grid sm:grid-cols-3 md:grig-cols-2">
+    <div className="grid sm:grid sm:grid-cols-3 md:grid-cols-3 lg:grid-col-2 bg-gray-200 h-max">
       {notes
         .filter((note) => note.user === loggedInUserId)
 
         .map((note) => (
           <div
             key={note._id}
-            className="bg-gray-300  border-black border-2 m-4 rounded-xl relative min-h-30 sm:min-h-40 shadow-xl "
+            // className="bg-gray-300  border-black border-2 m-4 rounded-xl relative min-h-30 sm:min-h-40 shadow-xl "
+            className="bg-white  border-black mx-3  my-2 whitespace-pre-wrap break-words overflow-hidden rounded-bl-xl  relative  shadow-xl  hover:bg-"
           >
             <h1 className="font-bold text-xl">Title : {note.title}</h1>
             <p className="text-xl">
@@ -54,6 +71,7 @@ function NotesContainer() {
                 className="w-8 h-8 rounded-full hover:opacity-80 transition absolute bottom-2 right-2"
               />
             </button>
+            <h6 className="transition absolute bottom-2 left-2">{note.date}</h6>
           </div>
         ))}
     </div>

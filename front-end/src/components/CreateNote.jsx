@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { fetchWithAuth } from "../utils";
+import { useNavigate, useParams } from "react-router-dom";
 function CreateNote() {
+  const navigate = useNavigate();
   const [note, setNote] = useState({
     title: "",
     text: "",
@@ -37,22 +39,28 @@ function CreateNote() {
       text: "",
       date: "",
     });
+    navigate("/notescontainer");
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div className="addnotespage">
-          <label>
-            Title :
-            <input
-              className="h-10 w-50 border-2 text-2xl rounded-xl"
-              name="title"
-              value={note.title}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
+        <div className="bg-yellow-100 min-h-screen p-20">
+          <button
+            type="submit"
+            className="h-10 w-20 bg-black text-white fixed top-20 right-4 rounded-2xl"
+          >
+            ADD
+          </button>
+          <input
+            className="h-20 w-full  text-5xl p-10 "
+            name="title"
+            value={note.title}
+            placeholder="Title"
+            onChange={handleChange}
+          />
+
+          {/* <label>
             Date :
             <input
               className="h-10 w-50 border-2 text-2xl rounded-xl"
@@ -61,20 +69,16 @@ function CreateNote() {
               value={note.date}
               onChange={handleChange}
             />
-          </label>
-          <label>
-            {/* Write note here: */}
-            <textarea
-              className="border-2 text-2xl h-100 w-80 rounded-xl"
-              name="text"
-              value={note.text}
-              placeholder="Type something..."
-              onChange={handleChange}
-            />
-          </label>
-          <button type="submit" className="btn">
-            Submit
-          </button>
+          </label> */}
+
+          {/* Write note here: */}
+          <textarea
+            className="h-screen w-full text-2xl p-10 "
+            name="text"
+            value={note.text}
+            placeholder="Write here"
+            onChange={handleChange}
+          />
         </div>
       </form>
     </div>

@@ -46,7 +46,6 @@ function EditNote() {
       body: JSON.stringify(note),
     });
 
-    console.log("Note updated!");
     navigate("/notescontainer");
   };
 
