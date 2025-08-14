@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { fetchWithAuth } from "../utils";
-import { useNavigate, useParams } from "react-router-dom";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 function CreateNote() {
-  const navigate = useNavigate();
   const [note, setNote] = useState({
     title: "",
     text: "",
@@ -41,28 +37,22 @@ function CreateNote() {
       text: "",
       date: "",
     });
-    navigate("/notescontainer");
   };
 
   return (
-    <Box
-      component="form"
-      sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
-      noValidate
-      autoComplete="off"
-    >
-      <div>
-        <form onSubmit={handleSubmit}>
-          <div className="p-20 flex flex-col items-center text-center">
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div className="addnotespage">
+          <label>
+            Title :z
             <input
-              className="h-20 w-150  text-5xl p-10 "
+              className="h-10 w-50 border-2 text-2xl rounded-xl"
               name="title"
               value={note.title}
-              placeholder="Title"
               onChange={handleChange}
             />
-
-            {/* <label>
+          </label>
+          <label>
             Date :
             <input
               className="h-10 w-50 border-2 text-2xl rounded-xl"
@@ -71,37 +61,23 @@ function CreateNote() {
               value={note.date}
               onChange={handleChange}
             />
-          </label> */}
-
+          </label>
+          <label>
             {/* Write note here: */}
-            <TextField
-              id="standard-multiline-static"
-              label="Multiline"
-              multiline
-              rows={4}
-              defaultValue="Default Value"
-              variant="standard"
-              onChange={handleChange}
-              value={note.text}
-              name="text"
-            />
             <textarea
-              className="h-200 w-150 text-2xl p-10 "
+              className="border-2 text-2xl h-100 w-80 rounded-xl"
               name="text"
               value={note.text}
-              placeholder="Write here"
+              placeholder="Type something..."
               onChange={handleChange}
             />
-            <button
-              type="submit"
-              className="h-10 w-20 bg-black text-white  rounded-2xl"
-            >
-              ADD
-            </button>
-          </div>
-        </form>
-      </div>
-    </Box>
+          </label>
+          <button type="submit" className="btn">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 
