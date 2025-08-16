@@ -15,12 +15,15 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { BloodtypeOutlined } from "@mui/icons-material";
+import EditNoteDialogue from "./editNoteModal";
 
 function NotesContainer() {
   const navigate = useNavigate();
   const [notes, setNotes] = useState([]);
-  const [openNote, setOpenNote] = useState(null); // clicked note
+  const [openNote, setOpenNote] = useState(null); // for view dialog
+  const [isEditOpen, setIsEditOpen] = useState(false); // single edit dialog toggle
+  const [editingNoteId, setEditingNoteId] = useState(null); // which note to edit
+
   const loggedInUserId = sessionStorage.getItem("userId");
 
   useEffect(() => {
@@ -33,9 +36,12 @@ function NotesContainer() {
     });
     setNotes((prev) => prev.filter((n) => n._id !== id));
     if (openNote?._id === id) setOpenNote(null);
+    if (editingNoteId === id) {
+      setIsEditOpen(false);
+      setEditingNoteId(null);
+    }
   };
 
-  // 🎨 More pastel colors
   const colors = [
     "#FFCDD2",
     "#EF9A9A",
@@ -61,9 +67,12 @@ function NotesContainer() {
     return colors[hash % colors.length];
   };
 
+  // derive selected note once
+  const editingNote = notes.find((n) => n._id === editingNoteId) || null;
+
   return (
     <>
-      <div className="grid sm:grid sm:grid-cols-3 md:grid-cols-3 lg:grid-col-2 bg-gray-200 h-max">
+      <div className="grid sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-200 h-max">
         {notes
           .filter((note) => note.user === loggedInUserId)
           .map((note) => {
@@ -105,7 +114,7 @@ function NotesContainer() {
                         position: "absolute",
                         top: 12,
                         left: 12,
-                        right: 12, // allow ellipsis when long
+                        right: 12,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
@@ -113,15 +122,18 @@ function NotesContainer() {
                     >
                       Title: {note.title}
                     </Typography>
+
                     <Divider
-                      textAlign="left"
                       sx={{
                         mb: 1.5,
                         borderColor: "divider",
-                        borderWidth: 2,
+                        borderWidth: 1.5,
                         borderRadius: 2,
+                        position: "relative",
+                        bottom: 40,
                       }}
-                    ></Divider>
+                    />
+
                     <Typography
                       variant="body1"
                       sx={{
@@ -130,6 +142,8 @@ function NotesContainer() {
                         pr: 6,
                         position: "absolute",
                         top: 50,
+                        overflow: "hidden",
+                        height: 100,
                       }}
                     >
                       {note.text}
@@ -137,6 +151,7 @@ function NotesContainer() {
 
                     <Typography
                       variant="caption"
+                      color="text.secondary"
                       sx={{ position: "absolute", left: 16, bottom: 10 }}
                     >
                       {dateStr}
@@ -159,9 +174,10 @@ function NotesContainer() {
                   aria-label="edit"
                   onClick={(e) => {
                     e.stopPropagation();
-                    navigate(`/edit/${note._id}`);
+                    setEditingNoteId(note._id);
+                    setIsEditOpen(true);
                   }}
-                  sx={{ position: "absolute", bottom: 8, right: 8 }}
+                  sx={{ position: "absolute", top: 8, right: 40 }}
                 >
                   <EditIcon />
                 </IconButton>
@@ -170,15 +186,23 @@ function NotesContainer() {
           })}
       </div>
 
-      {/* Pop-out modal with same card design */}
+      {/* Single, centralized Edit dialog */}
+      <EditNoteDialogue
+        noteId={editingNoteId}
+        open={isEditOpen}
+        setOpen={(open) => {
+          setIsEditOpen(open);
+          if (!open) setEditingNoteId(null);
+        }}
+      />
+
+      {/* Pop-out modal for viewing */}
       <Dialog
         open={Boolean(openNote)}
         onClose={() => setOpenNote(null)}
         maxWidth="sm"
         fullWidth
-        PaperProps={{
-          sx: { background: "transparent", boxShadow: "none" }, // transparent so card design shows
-        }}
+        PaperProps={{ sx: { background: "transparent", boxShadow: "none" } }}
       >
         <DialogContent sx={{ p: 0 }}>
           {openNote && (
@@ -197,26 +221,34 @@ function NotesContainer() {
                 <Typography variant="h6" fontWeight={700} gutterBottom>
                   Title: {openNote.title}
                 </Typography>
-
+                <Divider
+                  sx={{
+                    mb: 1.5,
+                    borderColor: "divider",
+                    borderWidth: 1.5,
+                    borderRadius: 2,
+                    position: "relative",
+                    bottom: 5,
+                  }}
+                />
                 <Typography
                   variant="body1"
                   sx={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
                 >
                   {openNote.text}
                 </Typography>
-
-                <Typography variant="caption" sx={{ mt: 2, display: "block" }}>
+                <Typography variant="caption" color="text.secondary">
                   {String(openNote?.date).split("T")[0]}
                 </Typography>
               </CardContent>
 
-              {/* Actions in popup */}
               <Box sx={{ position: "absolute", top: 8, right: 8 }}>
                 <IconButton
                   aria-label="edit"
                   onClick={() => {
+                    setEditingNoteId(openNote._id);
+                    setIsEditOpen(true);
                     setOpenNote(null);
-                    navigate(`/edit/${openNote._id}`);
                   }}
                 >
                   <EditIcon />
