@@ -16,6 +16,7 @@ function CreateNote() {
   };
 
   const handleSubmit = async (e) => {
+    console.log("stop");
     e.preventDefault();
 
     if (!note.title.trim() || !note.text.trim()) return;

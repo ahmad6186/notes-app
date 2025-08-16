@@ -11,9 +11,11 @@ import {
   Button,
   Typography,
   Box,
+  Divider,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { BloodtypeOutlined } from "@mui/icons-material";
 
 function NotesContainer() {
   const navigate = useNavigate();
@@ -91,7 +93,7 @@ function NotesContainer() {
               >
                 <CardActionArea
                   onClick={() => setOpenNote(note)}
-                  sx={{ height: "100%" }}
+                  sx={{ height: 190 }}
                 >
                   <CardContent sx={{ px: 3, py: 2 }}>
                     <Typography
@@ -99,16 +101,35 @@ function NotesContainer() {
                       fontWeight={700}
                       gutterBottom
                       noWrap
+                      sx={{
+                        position: "absolute",
+                        top: 12,
+                        left: 12,
+                        right: 12, // allow ellipsis when long
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
                     >
                       Title: {note.title}
                     </Typography>
-
+                    <Divider
+                      textAlign="left"
+                      sx={{
+                        mb: 1.5,
+                        borderColor: "divider",
+                        borderWidth: 2,
+                        borderRadius: 2,
+                      }}
+                    ></Divider>
                     <Typography
                       variant="body1"
                       sx={{
                         whiteSpace: "pre-wrap",
                         wordBreak: "break-word",
                         pr: 6,
+                        position: "absolute",
+                        top: 50,
                       }}
                     >
                       {note.text}
