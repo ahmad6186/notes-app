@@ -3,7 +3,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import NotesContainer from "./components/NotesContainer";
 import CreateNote from "./components/CreateNote";
-import EditNote from "./components/EditNote";
+
 import LoginPage from "./components/login page";
 import SignupPage from "./components/signup page";
 function App() {
@@ -14,24 +14,6 @@ function App() {
         <>
           <NavBar />
           <NotesContainer />
-        </>
-      ),
-    },
-    {
-      path: "/createnote",
-      element: (
-        <>
-          <NavBar />
-          <CreateNote />
-        </>
-      ),
-    },
-    {
-      path: "/edit/:id",
-      element: (
-        <>
-          <NavBar />
-          <EditNote />
         </>
       ),
     },

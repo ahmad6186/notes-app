@@ -22,5 +22,31 @@ async function handleLogin(req, res) {
   const updatedUser = await User.findById(user.id);
   return res.status(201).json(updatedUser);
 }
+// async function handleLogout(req, res) {
+//   await User.findOneAndUpdate(req.params.id, {
+//     sessionid: null,
+//     sessionExpiry: null,
+//   });
+//   const updatedUser = await User.findById(req.params.id);
+//   return res.status(201).json(updatedUser);
+// }
+async function handleLogout(req, res) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      { $set: { sessionId: null, sessionExpiry: null } },
+      { new: true } // return updated document
+    );
 
-module.exports = { handleSignup, handleLogin };
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    return res.status(200).json(updatedUser);
+  } catch (err) {
+    console.error("Logout error:", err);
+    return res.status(500).json({ error: "Server error during logout" });
+  }
+}
+
+module.exports = { handleSignup, handleLogin, handleLogout };

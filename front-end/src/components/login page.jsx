@@ -31,7 +31,6 @@ function LoginPage() {
     if (response.ok) {
       const data = await response.json();
       sessionStorage.setItem("userId", data._id);
-      console.log(data);
       sessionStorage.setItem("sessionId", data.sessionId);
       sessionStorage.setItem("sessionExpiry", data.sessionExpiry);
       setuser({ email: "", password: "" });

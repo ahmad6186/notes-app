@@ -55,7 +55,12 @@ export default function CreateNoteDialogue({ open, setOpen }) {
 
   return (
     <React.Fragment>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth="sm" // options: 'xs', 'sm', 'md', 'lg', 'xl'
+        fullWidth
+      >
         <DialogTitle>Add a Note</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit} id="subscription-form">

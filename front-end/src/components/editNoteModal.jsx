@@ -226,17 +226,8 @@ export default function EditNoteDialogue({ open, setOpen, noteId }) {
       <Dialog
         open={open}
         onClose={handleClose}
-        // PaperProps={{
-        //   sx: {
-        //     // background: "transparent", // modal content background is transparent
-        //     boxShadow: "none",
-        //   },
-        // }}
-        // BackdropProps={{
-        //   sx: {
-        //     backgroundColor: "rgba(0, 0, 0, 0.5)", // dim the background (50% opacity)
-        //   },
-        // }}
+        maxWidth="sm" // options: 'xs', 'sm', 'md', 'lg', 'xl'
+        fullWidth
       >
         <DialogTitle>Edit Note</DialogTitle>
         <DialogContent>

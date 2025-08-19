@@ -16,16 +16,27 @@ async function authenticateUser(req, res, next) {
     return res.status(401).json({ error: "Token not provided" });
   }
 
-  // OPTIONAL: verify the token (e.g., against session store or JWT)
-  // Example: if you're using session map:
-  const user = await User.findOne({ sessionId: token }); // Implement getUser logic
+  // Find user with matching sessionId
+  const user = await User.findOne({ sessionId: token });
 
   if (!user) {
     return res.status(403).json({ error: "Invalid or expired token" });
   }
-  // console.log("User found: ", user);
-  req.user = user; // attach user to request
-  next(); // proceed to next middleware or route
+
+  // ✅ Check sessionExpiry
+  if (user.sessionExpiry && new Date(user.sessionExpiry) < new Date()) {
+    // Session has expired
+    // Instead of throwing error, you can choose to refresh or just pass through
+    console.warn(`Session expired for user: ${user._id}`);
+    // If you don’t want to throw error:
+    // return next();
+    // If you want to reject expired sessions:
+    return res.status(403).json({ error: "Session expired" });
+  }
+
+  // Attach user to request object
+  req.user = user;
+  next();
 }
 
 module.exports = { authenticateUser };

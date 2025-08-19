@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchWithAuth } from "../utils";
+
 import {
   Card,
   CardContent,
@@ -75,6 +76,8 @@ function NotesContainer() {
       <div className="grid sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-200 h-max">
         {notes
           .filter((note) => note.user === loggedInUserId)
+          .slice()
+          .reverse()
           .map((note) => {
             const bg = getColorFromId(note._id);
             const dateStr = String(note?.date || "").split("T")[0];
