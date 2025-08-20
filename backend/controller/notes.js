@@ -47,4 +47,36 @@ async function deletenote(req, res) {
   await Note.findByIdAndDelete(req.params.id);
   return res.status(201).json({ status: "success" });
 }
-module.exports = { showallnotes, addnote, deletenote, getNoteById, editNote };
+async function pinNote(req, res) {
+  const { id } = req.params;
+  const note = await Note.findById(id);
+  if (note.pin != true) {
+    const updatedNote = await Note.findByIdAndUpdate(
+      id,
+      { $set: { pin: true } },
+      { new: true }
+    );
+  } else {
+    const updatedNote = await Note.findByIdAndUpdate(
+      id,
+      { $set: { pin: false } },
+      { new: true }
+    );
+  }
+  if (!updatedUser) {
+    return res.status(404).json({ error: "User not found" });
+  }
+  return res.status(200).json(updatedUser);
+}
+async function deletenote(req, res) {
+  await Note.findByIdAndDelete(req.params.id);
+  return res.status(201).json({ status: "success" });
+}
+module.exports = {
+  showallnotes,
+  addnote,
+  deletenote,
+  getNoteById,
+  editNote,
+  pinNote,
+};

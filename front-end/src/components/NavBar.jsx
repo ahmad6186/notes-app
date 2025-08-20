@@ -33,6 +33,9 @@ export default function NavBar() {
       console.error("Logout failed:", e);
     } finally {
       setAnchorEl(null);
+      sessionStorage.removeItem("sessionId");
+      sessionStorage.removeItem("sessionExpiry");
+
       sessionStorage.removeItem("userId");
 
       navigate("/");
@@ -50,6 +53,7 @@ export default function NavBar() {
           <Button
             variant="contained"
             startIcon={<Add />}
+            sx={{ mr: 2 }}
             onClick={() => setOpenModal(true)}
           >
             Add A Note
@@ -57,16 +61,19 @@ export default function NavBar() {
 
           {auth && (
             <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
+              <Button
+                // size="large"
+                variant="contained"
+                // aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleMenu}
-                color="inherit"
+
+                // color="inherit"
               >
-                <AccountCircle />
-              </IconButton>
+                {/* <AccountCircle /> */}
+                LOG OUT
+              </Button>
 
               <Menu
                 id="menu-appbar"

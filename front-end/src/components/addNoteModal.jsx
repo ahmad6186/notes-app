@@ -50,6 +50,7 @@ export default function CreateNoteDialogue({ open, setOpen }) {
       date: "",
     });
     window.location.reload();
+
     setOpen(false);
   };
 

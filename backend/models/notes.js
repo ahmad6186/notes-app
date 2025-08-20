@@ -15,6 +15,9 @@ const noteschema = new mongoose.Schema({
     ref: "user", // name of the model you're referencing
     required: true,
   },
+  pin: {
+    type: Boolean,
+  },
 });
 const Note = mongoose.model("note", noteschema);
 module.exports = Note;

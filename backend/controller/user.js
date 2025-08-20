@@ -22,14 +22,6 @@ async function handleLogin(req, res) {
   const updatedUser = await User.findById(user.id);
   return res.status(201).json(updatedUser);
 }
-// async function handleLogout(req, res) {
-//   await User.findOneAndUpdate(req.params.id, {
-//     sessionid: null,
-//     sessionExpiry: null,
-//   });
-//   const updatedUser = await User.findById(req.params.id);
-//   return res.status(201).json(updatedUser);
-// }
 async function handleLogout(req, res) {
   try {
     const updatedUser = await User.findByIdAndUpdate(
