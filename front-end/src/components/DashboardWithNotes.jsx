@@ -18,7 +18,7 @@ import { Add } from "@mui/icons-material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useNavigate } from "react-router-dom";
-
+import EventNoteIcon from "@mui/icons-material/EventNote";
 import NotesContainer from "./NotesContainer";
 import CreateNoteDialogue from "./addNoteModal";
 
@@ -122,13 +122,7 @@ export default function DashboardWithNotes() {
       theme={themeBase}
       branding={{
         title: "NOTES APP",
-        logo: (
-          <Avatar
-            src="/notes-logo.png"
-            alt="NOTES APP"
-            sx={{ width: 28, height: 28 }}
-          />
-        ),
+        logo: <EventNoteIcon />,
       }}
     >
       <DashboardLayout slots={{ toolbarActions: TopActions }}>
