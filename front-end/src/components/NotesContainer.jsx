@@ -6,9 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import PushPinIcon from "@mui/icons-material/PushPin";
 import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
-import Badge from "@mui/material/Badge";
-import Stack from "@mui/material/Stack";
-import MailIcon from "@mui/icons-material/Mail";
+
 import {
   Card,
   CardContent,
@@ -120,7 +118,7 @@ function NotesContainer() {
   const orderedNotes = [...pinned, ...others];
   return (
     <>
-      <div className="grid sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-200 h-max">
+      <div className="grid sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3  h-max">
         {orderedNotes.map((note) => {
           const bg = getColorFromId(note._id);
           const dateStr = String(note?.date || "").split("T")[0];

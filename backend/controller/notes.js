@@ -1,5 +1,6 @@
 const Note = require("../models/notes");
 const User = require("../models/users");
+
 async function showallnotes(req, res) {
   const allnotes = await Note.find({});
   return res.json(allnotes);

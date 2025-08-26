@@ -12,7 +12,7 @@ const noteschema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user", // name of the model you're referencing
+    ref: "user",
     required: true,
   },
   pin: {

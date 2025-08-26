@@ -1,18 +1,16 @@
 import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
 import "./App.css";
-import NavBar from "./components/NavBar";
-import NotesContainer from "./components/NotesContainer";
 
 import LoginPage from "./components/login page";
 import SignupPage from "./components/signup page";
+import DashboardWithNotes from "./components/DashboardWithNotes";
 function App() {
   const router = createBrowserRouter([
     {
       path: "/notescontainer",
       element: (
         <>
-          <NavBar />
-          <NotesContainer />
+          <DashboardWithNotes />
         </>
       ),
     },
